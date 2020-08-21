@@ -9,7 +9,7 @@ defmodule  AccountManagmentTest do
   MyApp.Account.create_user(%{points: 30})
   MyApp.Account.create_user(%{points: 70})
 
-  {:ok, server_pid} = GenServer.start_link(AccountManagment, _init_args = nil)
+  {:ok, server_pid} = GenServer.start_link(AccountManagment, %{max_number: 0, timestamp: nil})
   {:ok, server: server_pid}
   end
 
@@ -17,7 +17,7 @@ defmodule  AccountManagmentTest do
     {users, timestamp} = AccountManagment.more(pid)
     assert timestamp == nil
     assert is_list(users)
-    assert length(users) <= 2
+    assert length(users) == 2
   end
 
   # test if AccountManagment.more doesnt return users with points less than max_value

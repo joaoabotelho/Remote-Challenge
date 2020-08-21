@@ -16,6 +16,11 @@ defmodule AccountManagment do
 
   # Server
 
+  def init(state) when is_map(state) do
+    schedule_work()
+    {:ok, state}
+  end
+
   def init(_) do
     schedule_work()
     {:ok, %{max_number: Enum.random(0..100), timestamp: nil}}
