@@ -1,5 +1,7 @@
 defmodule AccountManagment do
   use GenServer
+  import Ecto.Query
+  alias MyApp.Repo
 
   # Client
 
@@ -7,9 +9,26 @@ defmodule AccountManagment do
     GenServer.start_link(__MODULE__, state, name: __MODULE__)
   end
 
+
+  def more() do
+    GenServer.call(__MODULE__, :more)
+  end
+
+  # Server
+
   def init(_) do
     schedule_work()
     {:ok, %{max_number: Enum.random(0..100), timestamp: nil}}
+  end
+
+  def handle_call(:more, _from, state) do
+    update_state = %{max_number: state.max_number, timestamp: DateTime.utc_now()}
+    max_number = state.max_number
+    users = Repo.all(from u in MyApp.Account.User, where: u.points > ^max_number, select: u, limit: 2)
+
+    value = {users, state.timestamp}
+
+    {:reply, value, update_state}
   end
 
   def handle_info(:work, state) do
