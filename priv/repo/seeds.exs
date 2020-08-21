@@ -10,4 +10,4 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-Enum.each(0..99, fn(x) -> App.Account.create_user() end)
+Enum.each(0..99, fn(x) -> MyApp.Account.create_user() end)
