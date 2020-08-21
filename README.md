@@ -12,4 +12,14 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 ## Arquitecture 
 ![Image of Flow Chart](https://github.com/joaoabotelho/Remote-Challenge/blob/master/flow_chart.png)
 
+### Cron Job
 
+
+
+### Update Users
+
+### Fetch Users
+
+### Use of Genserver
+
+## Features do add
