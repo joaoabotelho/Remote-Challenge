@@ -5,7 +5,7 @@ defmodule MyAppWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", MyAppWeb do
+  scope "/", MyAppWeb do
     pipe_through :api
   end
 
