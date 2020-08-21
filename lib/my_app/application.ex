@@ -23,6 +23,8 @@ defmodule MyApp.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: MyApp.Supervisor]
     Supervisor.start_link(children, opts)
+
+    AccountManagment
   end
 
   # Tell Phoenix to update the endpoint configuration
