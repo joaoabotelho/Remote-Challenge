@@ -10,8 +10,8 @@ defmodule AccountManagment do
   end
 
 
-  def more() do
-    GenServer.call(__MODULE__, :more)
+  def more(server \\ __MODULE__) do
+    GenServer.call(server, :more)
   end
 
   # Server
