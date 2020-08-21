@@ -14,7 +14,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ### Use of GenServer
 
-It's only used one GenServer and with this every request is handled in sequential order. This is a bootleneck and can be avoided by using a pool of GenServers, reducing the cluster of requests.
+It's only used one GenServer and with this every request is handled in sequential order. This can be a bootleneck and should be avoided by using a pool of GenServers, reducing the cluster of requests.
 
 ### Cron Job
 
