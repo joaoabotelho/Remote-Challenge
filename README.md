@@ -14,24 +14,22 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ### Use of GenServer
 
-It's only used one GenServer and with this every request is handled in sequential order. This can be a bootleneck and should be avoided by using a pool of GenServers, reducing the cluster of requests.
+In this current implementation, only one GenServer is used, which means that every single request will be handle in sequential order. This can be a bootleneck in the future and can be mitigated by instead spawning multiple GenServers to handle requests in parallel.
 
 ### Cron Job
 
-A cron job it's implemented to assign the state of `max_number`, in the GenServer, to a random number each minute while it's running and also to make a update in the database for each `user.points` attribute by assigning a different random number between 0-100.
+A cron job is implemented in the GenServer for each minute with te objective to assign the state of `max_number` to a random integer from 0-100 and also to update the users table for each `user` and assign different random numbers between 0-100 to their `points` attribute.
 
-This is implemented by using a private function called `schedule_work` in `AccountManagment` module to program the Process to trigger `handle_info(:work)` each minute. In `handle_info(:work)` we update the state, make the query and finally call the method `schedule_work` one more time to trigger this method in the next minute. 
+It uses a private function called `schedule_work` in `AccountManagment` module to set the Process to trigger the method `handle_info(:work)` each minute it passes. 
+In `handle_info(:work)` we update the state, make the query and finally call the method `schedule_work` to trigger this method again in the next minute. 
 
 ### Update Users
 
-Users points are all updated with diferent random values with this query:
+All Users points are updated with diferent random values with the following query:
 `update users set points = (select floor(random() * 100) where users.id=users.id)`
 
 ### Fetch Users
 
-Users are fetched with the condition of their points being bigger than the max_number value in the state of the GenServer and it's only asked a max of 2 users.
+2 users must be fetched at most and both of them must have a `points` value higher than the `max_number` set as the state of the GenServer. The following is the query used:
 `Repo.all(from u in MyApp.Account.User, where: u.points > ^max_number, select: u, limit: 2)`
 
-## Features do add
-
-In the future, it should be added the use of multiple GenServers instead of one.
