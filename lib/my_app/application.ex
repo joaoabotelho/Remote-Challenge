@@ -17,6 +17,7 @@ defmodule MyApp.Application do
       MyAppWeb.Endpoint
       # Start a worker by calling: MyApp.Worker.start_link(arg)
       # {MyApp.Worker, arg}
+      AccountManagment
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -24,7 +25,6 @@ defmodule MyApp.Application do
     opts = [strategy: :one_for_one, name: MyApp.Supervisor]
     Supervisor.start_link(children, opts)
 
-    AccountManagment
   end
 
   # Tell Phoenix to update the endpoint configuration
