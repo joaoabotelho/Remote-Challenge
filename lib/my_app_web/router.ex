@@ -7,6 +7,7 @@ defmodule MyAppWeb.Router do
 
   scope "/", MyAppWeb do
     pipe_through :api
+    get "/", UserController, :max_points_users
   end
 
   # Enables LiveDashboard only for development
